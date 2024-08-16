@@ -4,8 +4,12 @@ const express = require('express');
 
 // ping every 10 minutes
 setInterval(async () => {
-    await axios.get(process.env.SERVER_URL);
-    console.log(`pinged ${process.env.SERVER_URL}`);
+    try {
+        await axios.get(process.env.SERVER_URL);
+        console.log(`pinged ${process.env.SERVER_URL}`);
+    } catch(error) {
+        console.log(error);
+    }
 }, 600000);
 
 const app = express();
