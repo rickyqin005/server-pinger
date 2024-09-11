@@ -2,15 +2,15 @@ require('dotenv').config();
 const axios = require('axios');
 const express = require('express');
 
-// ping every 10 minutes
+// ping every minute
 setInterval(async () => {
     try {
         await axios.get(process.env.SERVER_URL);
         console.log(`pinged ${process.env.SERVER_URL}`);
     } catch(error) {
-        console.log(error);
+        console.log(`${error.response.status} ${error.response.statusText} ${error.config.url} : ${error.message}`);
     }
-}, 600000);
+}, process.env.PING_INTERVAL);
 
 const app = express();
 const port = 3000;
